@@ -1,11 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React, { useState } from 'react';
+import Leaderboard from '@/components/Leaderboard';
+import AdminControls from '@/components/AdminControls';
+import LeaderboardHeader from '@/components/LeaderboardHeader';
+import { participants as initialParticipants } from '@/data/participants';
+import { Toaster } from '@/components/ui/sonner';
 
 const Index = () => {
+  const [participants, setParticipants] = useState(initialParticipants);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-10">
+      <Toaster />
+      <LeaderboardHeader />
+      
+      <div className="container px-4 mx-auto">
+        <AdminControls 
+          participants={participants}
+          onUpdateParticipants={setParticipants}
+        />
+        
+        <Leaderboard participants={participants} />
       </div>
     </div>
   );
