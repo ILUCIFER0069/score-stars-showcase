@@ -20,12 +20,17 @@ const ADMIN_PASSWORD = "ScoreStars@4231";
 const leaderboardEl = document.getElementById('leaderboard');
 const searchInput = document.getElementById('searchInput');
 const updatePointsBtn = document.getElementById('updatePointsBtn');
-const addRandomBtn = document.getElementById('addRandomBtn');
+const addParticipantBtn = document.getElementById('addParticipantBtn');
 const updatePopup = document.getElementById('updatePopup');
+const addParticipantPopup = document.getElementById('addParticipantPopup'); 
 const participantSelect = document.getElementById('participantSelect');
 const pointsInput = document.getElementById('pointsInput');
+const nameInput = document.getElementById('nameInput');
+const initialPointsInput = document.getElementById('initialPointsInput');
 const updateBtn = document.getElementById('updateBtn');
 const cancelBtn = document.getElementById('cancelBtn');
+const addBtn = document.getElementById('addBtn');
+const cancelAddBtn = document.getElementById('cancelAddBtn');
 const currentYearEl = document.getElementById('currentYear');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
@@ -48,9 +53,11 @@ function initializeLeaderboard() {
   // Add event listeners
   searchInput.addEventListener('input', handleSearch);
   updatePointsBtn.addEventListener('click', showUpdatePopup);
-  addRandomBtn.addEventListener('click', addRandomPoints);
+  addParticipantBtn.addEventListener('click', showAddParticipantPopup);
   updateBtn.addEventListener('click', updateParticipantPoints);
   cancelBtn.addEventListener('click', hideUpdatePopup);
+  addBtn.addEventListener('click', addNewParticipant);
+  cancelAddBtn.addEventListener('click', hideAddParticipantPopup);
   participantSelect.addEventListener('change', handleParticipantSelection);
   
   // Admin login event listeners
@@ -158,6 +165,17 @@ function renderLeaderboard(participantsToRender) {
       rankElement = `<div class="rank-circle">${position}</div>`;
     }
     
+    // Add delete button for admin
+    const deleteButton = `
+      <button class="delete-btn" data-id="${participant.id}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18"></path>
+          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+        </svg>
+      </button>
+    `;
+    
     // Build entry HTML
     entry.innerHTML = `
       <div class="participant-rank">
@@ -167,11 +185,39 @@ function renderLeaderboard(participantsToRender) {
       <div class="participant-points">
         <div class="points-value">${participant.points.toLocaleString()}</div>
         <div class="points-label">points</div>
+        ${localStorage.getItem('adminLoggedIn') === 'true' ? deleteButton : ''}
       </div>
     `;
     
+    // Add event listener to delete button
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+      setTimeout(() => {
+        const deleteBtn = entry.querySelector('.delete-btn');
+        if (deleteBtn) {
+          deleteBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const participantId = parseInt(this.getAttribute('data-id'));
+            deleteParticipant(participantId);
+          });
+        }
+      }, 0);
+    }
+    
     leaderboardEl.appendChild(entry);
   });
+}
+
+// Delete participant
+function deleteParticipant(participantId) {
+  const participant = participants.find(p => p.id === participantId);
+  if (!participant) return;
+  
+  if (confirm(`Are you sure you want to delete ${participant.name}?`)) {
+    participants = participants.filter(p => p.id !== participantId);
+    renderLeaderboard(participants);
+    populateParticipantSelect();
+    showToast(`${participant.name} has been removed from the leaderboard`);
+  }
 }
 
 // Search functionality
@@ -206,6 +252,19 @@ function hideUpdatePopup() {
   pointsInput.value = '';
 }
 
+// Show add participant popup
+function showAddParticipantPopup() {
+  addParticipantPopup.style.display = 'flex';
+  nameInput.value = '';
+  initialPointsInput.value = '0';
+  nameInput.focus();
+}
+
+// Hide add participant popup
+function hideAddParticipantPopup() {
+  addParticipantPopup.style.display = 'none';
+}
+
 // Handle participant selection in dropdown
 function handleParticipantSelection() {
   const selectedId = parseInt(participantSelect.value);
@@ -215,6 +274,41 @@ function handleParticipantSelection() {
   } else {
     pointsInput.value = '';
   }
+}
+
+// Add new participant
+function addNewParticipant() {
+  const name = nameInput.value.trim();
+  const points = parseInt(initialPointsInput.value);
+  
+  if (!name) {
+    showToast('Please enter a participant name');
+    return;
+  }
+  
+  if (isNaN(points)) {
+    showToast('Please enter valid initial points');
+    return;
+  }
+  
+  // Generate new ID
+  const maxId = participants.reduce((max, p) => Math.max(max, p.id), 0);
+  const newId = maxId + 1;
+  
+  // Add new participant
+  participants.push({
+    id: newId,
+    name: name,
+    points: points
+  });
+  
+  // Re-render and cleanup
+  renderLeaderboard(participants);
+  populateParticipantSelect();
+  hideAddParticipantPopup();
+  
+  // Show confirmation
+  showToast(`${name} added to the leaderboard`);
 }
 
 // Update participant points
@@ -244,17 +338,6 @@ function updateParticipantPoints() {
   showToast(`${participant.name}'s points updated to ${newPoints}`);
 }
 
-// Add random points to all participants
-function addRandomPoints() {
-  participants = participants.map(p => {
-    const randomPoints = Math.floor(Math.random() * 100) + 1;
-    return { ...p, points: p.points + randomPoints };
-  });
-  
-  renderLeaderboard(participants);
-  showToast('Random points added to all participants');
-}
-
 // Show toast notification
 function showToast(message) {
   toastMessage.textContent = message;
@@ -269,6 +352,13 @@ function showToast(message) {
 passwordInput.addEventListener('keyup', function(event) {
   if (event.key === 'Enter') {
     handleLogin();
+  }
+});
+
+// Add event listener for Enter key in add participant form
+nameInput?.addEventListener('keyup', function(event) {
+  if (event.key === 'Enter' && initialPointsInput.value) {
+    addNewParticipant();
   }
 });
 

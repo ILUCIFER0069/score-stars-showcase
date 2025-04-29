@@ -12,6 +12,7 @@
   --gold: #FFD700;
   --silver: #C0C0C0;
   --bronze: #CD7F32;
+  --red-500: #ef4444;
 }
 
 * {
@@ -195,6 +196,9 @@ body {
 
 .participant-points {
   text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .points-value {
@@ -206,6 +210,26 @@ body {
 .points-label {
   font-size: 0.75rem;
   color: var(--gray-500);
+}
+
+/* Delete button */
+.delete-btn {
+  background-color: transparent;
+  color: var(--gray-500);
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  color: var(--red-500);
+  background-color: rgba(239, 68, 68, 0.1);
 }
 
 /* Gold, silver, bronze styling */

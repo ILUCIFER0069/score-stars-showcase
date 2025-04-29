@@ -32,7 +32,7 @@
       <h2>Admin Controls</h2>
       <div class="admin-controls">
         <button id="updatePointsBtn" class="btn">Update Participant Points</button>
-        <button id="addRandomBtn" class="btn">Add Random Points to All</button>
+        <button id="addParticipantBtn" class="btn">Add New Participant</button>
         <button id="logoutBtn" class="btn btn-cancel">Logout</button>
       </div>
     </div>
@@ -60,6 +60,19 @@
         <div class="popup-buttons">
           <button id="updateBtn" class="btn">Update</button>
           <button id="cancelBtn" class="btn btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Add Participant Popup -->
+    <div id="addParticipantPopup" class="popup">
+      <div class="popup-content">
+        <h3>Add New Participant</h3>
+        <input type="text" id="nameInput" placeholder="Enter participant name">
+        <input type="number" id="initialPointsInput" placeholder="Enter initial points" value="0">
+        <div class="popup-buttons">
+          <button id="addBtn" class="btn">Add</button>
+          <button id="cancelAddBtn" class="btn btn-cancel">Cancel</button>
         </div>
       </div>
     </div>
