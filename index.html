@@ -1,26 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>score-stars-showcase</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Score Stars Leaderboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="trophy-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+          <path d="M4 22h16"></path>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+        </svg>
+      </div>
+      <h1>Score Stars</h1>
+      <p>The ultimate leaderboard tracking top performers and their outstanding achievements</p>
+    </header>
 
-    <meta property="og:title" content="score-stars-showcase" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Admin Controls -->
+    <div class="admin-card">
+      <h2>Admin Controls</h2>
+      <div class="admin-controls">
+        <button id="updatePointsBtn" class="btn">Update Participant Points</button>
+        <button id="addRandomBtn" class="btn">Add Random Points to All</button>
+      </div>
+    </div>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Update Points Popup -->
+    <div id="updatePopup" class="popup">
+      <div class="popup-content">
+        <h3>Update Points</h3>
+        <select id="participantSelect">
+          <option value="">Select Participant</option>
+        </select>
+        <input type="number" id="pointsInput" placeholder="Enter new points">
+        <div class="popup-buttons">
+          <button id="updateBtn" class="btn">Update</button>
+          <button id="cancelBtn" class="btn btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
 
-  <body>
-    <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search participants...">
+    </div>
+
+    <!-- Leaderboard -->
+    <div id="leaderboard" class="leaderboard">
+      <!-- Leaderboard entries will be inserted here by JavaScript -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>© <span id="currentYear"></span> Score Stars Leaderboard</p>
+      <p class="subtitle">Track, compete, and celebrate achievements</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast">
+    <p id="toastMessage"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
 </html>
