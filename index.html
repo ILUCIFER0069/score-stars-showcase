@@ -24,14 +24,28 @@
       </div>
       <h1>Score Stars</h1>
       <p>The ultimate leaderboard tracking top performers and their outstanding achievements</p>
+      <button id="loginBtn" class="admin-login-btn">Admin Login</button>
     </header>
 
-    <!-- Admin Controls -->
-    <div class="admin-card">
+    <!-- Admin Controls (initially hidden) -->
+    <div id="adminPanel" class="admin-card" style="display: none;">
       <h2>Admin Controls</h2>
       <div class="admin-controls">
         <button id="updatePointsBtn" class="btn">Update Participant Points</button>
         <button id="addRandomBtn" class="btn">Add Random Points to All</button>
+        <button id="logoutBtn" class="btn btn-cancel">Logout</button>
+      </div>
+    </div>
+
+    <!-- Login Popup -->
+    <div id="loginPopup" class="popup">
+      <div class="popup-content">
+        <h3>Admin Login</h3>
+        <input type="password" id="passwordInput" placeholder="Enter password">
+        <div class="popup-buttons">
+          <button id="submitPasswordBtn" class="btn">Login</button>
+          <button id="cancelLoginBtn" class="btn btn-cancel">Cancel</button>
+        </div>
       </div>
     </div>
 

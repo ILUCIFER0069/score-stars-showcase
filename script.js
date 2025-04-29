@@ -13,6 +13,9 @@ let participants = [
   { id: 10, name: "Charlie Adams", points: 540 },
 ];
 
+// Admin password
+const ADMIN_PASSWORD = "ScoreStars@4231";
+
 // DOM elements
 const leaderboardEl = document.getElementById('leaderboard');
 const searchInput = document.getElementById('searchInput');
@@ -26,6 +29,13 @@ const cancelBtn = document.getElementById('cancelBtn');
 const currentYearEl = document.getElementById('currentYear');
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
+const loginBtn = document.getElementById('loginBtn');
+const loginPopup = document.getElementById('loginPopup');
+const passwordInput = document.getElementById('passwordInput');
+const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+const cancelLoginBtn = document.getElementById('cancelLoginBtn');
+const adminPanel = document.getElementById('adminPanel');
+const logoutBtn = document.getElementById('logoutBtn');
 
 // Set current year in footer
 currentYearEl.textContent = new Date().getFullYear();
@@ -42,6 +52,63 @@ function initializeLeaderboard() {
   updateBtn.addEventListener('click', updateParticipantPoints);
   cancelBtn.addEventListener('click', hideUpdatePopup);
   participantSelect.addEventListener('change', handleParticipantSelection);
+  
+  // Admin login event listeners
+  loginBtn.addEventListener('click', showLoginPopup);
+  submitPasswordBtn.addEventListener('click', handleLogin);
+  cancelLoginBtn.addEventListener('click', hideLoginPopup);
+  logoutBtn.addEventListener('click', handleLogout);
+  
+  // Check if admin is already logged in (from localStorage)
+  checkAdminSession();
+}
+
+// Check if admin is already logged in
+function checkAdminSession() {
+  const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+  if (isLoggedIn) {
+    adminPanel.style.display = 'block';
+    loginBtn.style.display = 'none';
+  }
+}
+
+// Show login popup
+function showLoginPopup() {
+  loginPopup.style.display = 'flex';
+  passwordInput.value = '';
+  passwordInput.focus();
+}
+
+// Hide login popup
+function hideLoginPopup() {
+  loginPopup.style.display = 'none';
+}
+
+// Handle login attempt
+function handleLogin() {
+  const password = passwordInput.value;
+  
+  if (password === ADMIN_PASSWORD) {
+    // Successful login
+    hideLoginPopup();
+    adminPanel.style.display = 'block';
+    loginBtn.style.display = 'none';
+    localStorage.setItem('adminLoggedIn', 'true');
+    showToast('Admin login successful');
+  } else {
+    // Failed login
+    showToast('Incorrect password');
+    passwordInput.value = '';
+    passwordInput.focus();
+  }
+}
+
+// Handle logout
+function handleLogout() {
+  adminPanel.style.display = 'none';
+  loginBtn.style.display = 'block';
+  localStorage.removeItem('adminLoggedIn');
+  showToast('Admin logged out');
 }
 
 // Render leaderboard with given participants
@@ -197,6 +264,13 @@ function showToast(message) {
     toast.classList.remove('show');
   }, 3000);
 }
+
+// Add event listener for Enter key in password input
+passwordInput.addEventListener('keyup', function(event) {
+  if (event.key === 'Enter') {
+    handleLogin();
+  }
+});
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', initializeLeaderboard);
