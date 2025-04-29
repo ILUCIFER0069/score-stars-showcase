@@ -4,7 +4,7 @@ import Leaderboard from '@/components/Leaderboard';
 import AdminControls from '@/components/AdminControls';
 import LeaderboardHeader from '@/components/LeaderboardHeader';
 import { participants as initialParticipants } from '@/data/participants';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from 'sonner';
 
 const Index = () => {
   const [participants, setParticipants] = useState(initialParticipants);
@@ -20,7 +20,10 @@ const Index = () => {
           onUpdateParticipants={setParticipants}
         />
         
-        <Leaderboard participants={participants} />
+        <Leaderboard 
+          participants={participants} 
+          onUpdateParticipants={setParticipants}
+        />
       </div>
       
       <footer className="mt-20 py-8 text-center text-gray-500 dark:text-gray-400">

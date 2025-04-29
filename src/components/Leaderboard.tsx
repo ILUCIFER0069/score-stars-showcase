@@ -1,17 +1,35 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LeaderboardEntry from './LeaderboardEntry';
 import { Participant } from '@/data/participants';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { Search, Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface LeaderboardProps {
   participants: Participant[];
+  onUpdateParticipants?: (participants: Participant[]) => void;
 }
 
-const Leaderboard: React.FC<LeaderboardProps> = ({ participants: initialParticipants }) => {
-  const [participants, setParticipants] = useState<Participant[]>(initialParticipants);
+const Leaderboard: React.FC<LeaderboardProps> = ({ 
+  participants, 
+  onUpdateParticipants 
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if admin is logged in
+  useEffect(() => {
+    const checkAdminStatus = () => {
+      const loggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+      setIsAdmin(loggedIn);
+    };
+    
+    checkAdminStatus();
+    window.addEventListener('storage', checkAdminStatus);
+    
+    return () => window.removeEventListener('storage', checkAdminStatus);
+  }, []);
 
   // Sort participants by points
   const sortedParticipants = [...participants].sort((a, b) => b.points - a.points);
@@ -20,6 +38,20 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ participants: initialParticip
   const filteredParticipants = sortedParticipants.filter(
     participant => participant.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Handle deletion of a participant
+  const handleDelete = (id: number) => {
+    if (!onUpdateParticipants) return;
+    
+    const participantToDelete = participants.find(p => p.id === id);
+    if (!participantToDelete) return;
+    
+    if (confirm(`Are you sure you want to delete ${participantToDelete.name}?`)) {
+      const updatedParticipants = participants.filter(p => p.id !== id);
+      onUpdateParticipants(updatedParticipants);
+      toast.success(`${participantToDelete.name} has been removed from the leaderboard`);
+    }
+  };
 
   return (
     <div className="w-full max-w-4xl mx-auto">
@@ -43,6 +75,8 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ participants: initialParticip
               key={participant.id}
               participant={participant}
               position={index + 1}
+              isAdmin={isAdmin}
+              onDelete={isAdmin && onUpdateParticipants ? () => handleDelete(participant.id) : undefined}
             />
           ))
         ) : (

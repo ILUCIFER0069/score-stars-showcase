@@ -1,15 +1,22 @@
 
 import React from 'react';
-import { Trophy } from 'lucide-react';
+import { Trophy, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Participant } from '@/data/participants';
 
 interface LeaderboardEntryProps {
   participant: Participant;
   position: number;
+  isAdmin?: boolean;
+  onDelete?: () => void;
 }
 
-const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ participant, position }) => {
+const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ 
+  participant, 
+  position,
+  isAdmin,
+  onDelete
+}) => {
   // Determine if the participant is in the top 3
   const isTopThree = position <= 3;
   
@@ -17,11 +24,11 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ participant, positi
   const getRankStyle = () => {
     switch (position) {
       case 1:
-        return "bg-gradient-to-r from-leaderboard-gold/20 to-leaderboard-gold/5 border-l-4 border-leaderboard-gold";
+        return "bg-gradient-to-r from-yellow-100 to-yellow-50 dark:from-yellow-900/20 dark:to-yellow-900/5 border-l-4 border-yellow-500";
       case 2:
-        return "bg-gradient-to-r from-leaderboard-silver/20 to-leaderboard-silver/5 border-l-4 border-leaderboard-silver";
+        return "bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800/30 dark:to-gray-800/10 border-l-4 border-gray-400";
       case 3:
-        return "bg-gradient-to-r from-leaderboard-bronze/20 to-leaderboard-bronze/5 border-l-4 border-leaderboard-bronze";
+        return "bg-gradient-to-r from-amber-100 to-amber-50 dark:from-amber-900/20 dark:to-amber-900/5 border-l-4 border-amber-500";
       default:
         return "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700";
     }
@@ -30,11 +37,11 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ participant, positi
   const getTrophyColor = () => {
     switch (position) {
       case 1:
-        return "text-leaderboard-gold";
+        return "text-yellow-500";
       case 2:
-        return "text-leaderboard-silver";
+        return "text-gray-400";
       case 3:
-        return "text-leaderboard-bronze";
+        return "text-amber-600";
       default:
         return "hidden";
     }
@@ -62,14 +69,28 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ participant, positi
           <h3 className="font-semibold text-gray-800 dark:text-gray-200">{participant.name}</h3>
         </div>
       </div>
-      <div className="text-right">
-        <span className={cn(
-          "font-mono font-bold text-lg",
-          position === 1 ? "text-leaderboard-purple" : "text-gray-700 dark:text-gray-300"
-        )}>
-          {participant.points.toLocaleString()}
-        </span>
-        <p className="text-xs text-gray-500">points</p>
+      <div className="flex items-center gap-3">
+        <div className="text-right">
+          <span className={cn(
+            "font-mono font-bold text-lg",
+            position === 1 ? "text-purple-600" : "text-gray-700 dark:text-gray-300"
+          )}>
+            {participant.points.toLocaleString()}
+          </span>
+          <p className="text-xs text-gray-500">points</p>
+        </div>
+        
+        {isAdmin && onDelete && (
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              onDelete();
+            }}
+            className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900/20"
+          >
+            <Trash2 size={16} />
+          </button>
+        )}
       </div>
     </div>
   );

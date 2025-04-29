@@ -9,103 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <div class="trophy-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFD700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-          <path d="M4 22h16"></path>
-          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-        </svg>
-      </div>
-      <h1>Score Stars</h1>
-      <p>The ultimate leaderboard tracking top performers and their outstanding achievements</p>
-      <button id="loginBtn" class="admin-login-btn">Admin Login</button>
-    </header>
-
-    <!-- Admin Controls (initially hidden) -->
-    <div id="adminPanel" class="admin-card" style="display: none;">
-      <h2>Admin Controls</h2>
-      <div class="admin-controls">
-        <button id="updatePointsBtn" class="btn">Update Participant Points</button>
-        <button id="addParticipantBtn" class="btn">Add New Participant</button>
-        <button id="logoutBtn" class="btn btn-cancel">Logout</button>
-      </div>
-    </div>
-
-    <!-- Login Popup -->
-    <div id="loginPopup" class="popup">
-      <div class="popup-content">
-        <h3>Admin Login</h3>
-        <input type="password" id="passwordInput" placeholder="Enter password">
-        <div class="popup-buttons">
-          <button id="submitPasswordBtn" class="btn">Login</button>
-          <button id="cancelLoginBtn" class="btn btn-cancel">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Update Points Popup -->
-    <div id="updatePopup" class="popup">
-      <div class="popup-content">
-        <h3>Update Points</h3>
-        <select id="participantSelect">
-          <option value="">Select Participant</option>
-        </select>
-        <input type="number" id="pointsInput" placeholder="Enter new points">
-        <div class="popup-buttons">
-          <button id="updateBtn" class="btn">Update</button>
-          <button id="cancelBtn" class="btn btn-cancel">Cancel</button>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Add Participant Popup -->
-    <div id="addParticipantPopup" class="popup">
-      <div class="popup-content">
-        <h3>Add New Participant</h3>
-        <input type="text" id="nameInput" placeholder="Enter participant name">
-        <input type="number" id="initialPointsInput" placeholder="Enter initial points" value="0">
-        <div class="popup-buttons">
-          <button id="addBtn" class="btn">Add</button>
-          <button id="cancelAddBtn" class="btn btn-cancel">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Search Bar -->
-    <div class="search-container">
-      <div class="search-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </div>
-      <input type="text" id="searchInput" placeholder="Search participants...">
-    </div>
-
-    <!-- Leaderboard -->
-    <div id="leaderboard" class="leaderboard">
-      <!-- Leaderboard entries will be inserted here by JavaScript -->
-    </div>
-
-    <!-- Footer -->
-    <footer>
-      <p>© <span id="currentYear"></span> Score Stars Leaderboard</p>
-      <p class="subtitle">Track, compete, and celebrate achievements</p>
-    </footer>
-  </div>
-
-  <div id="toast" class="toast">
-    <p id="toastMessage"></p>
-  </div>
-
+  <div id="root"></div>
+  
   <!-- Adding the required Lovable script tag -->
   <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
-  <script src="script.js"></script>
+  <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
