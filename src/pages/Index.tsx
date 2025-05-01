@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Leaderboard from '@/components/Leaderboard';
 import AdminControls from '@/components/AdminControls';
 import LeaderboardHeader from '@/components/LeaderboardHeader';
@@ -7,7 +7,26 @@ import { participants as initialParticipants } from '@/data/participants';
 import { Toaster } from 'sonner';
 
 const Index = () => {
-  const [participants, setParticipants] = useState(initialParticipants);
+  // Load participants from localStorage if available, otherwise use initial data
+  const loadParticipants = () => {
+    const savedParticipants = localStorage.getItem('participants');
+    if (savedParticipants) {
+      try {
+        return JSON.parse(savedParticipants);
+      } catch (e) {
+        console.error("Error loading participants from localStorage", e);
+        return initialParticipants;
+      }
+    }
+    return initialParticipants;
+  };
+
+  const [participants, setParticipants] = useState(loadParticipants);
+
+  // Save to localStorage whenever participants change
+  useEffect(() => {
+    localStorage.setItem('participants', JSON.stringify(participants));
+  }, [participants]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 pb-10">

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import LeaderboardEntry from './LeaderboardEntry';
 import { Participant } from '@/data/participants';
@@ -17,6 +16,12 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
+  const [localParticipants, setLocalParticipants] = useState<Participant[]>(participants);
+
+  // Keep local state in sync with props
+  useEffect(() => {
+    setLocalParticipants(participants);
+  }, [participants]);
 
   // Check if admin is logged in
   useEffect(() => {
@@ -32,7 +37,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   }, []);
 
   // Sort participants by points
-  const sortedParticipants = [...participants].sort((a, b) => b.points - a.points);
+  const sortedParticipants = [...localParticipants].sort((a, b) => b.points - a.points);
   
   // Filter participants based on search term
   const filteredParticipants = sortedParticipants.filter(
@@ -43,12 +48,14 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   const handleDelete = (id: number) => {
     if (!onUpdateParticipants) return;
     
-    const participantToDelete = participants.find(p => p.id === id);
+    const participantToDelete = localParticipants.find(p => p.id === id);
     if (!participantToDelete) return;
     
     if (confirm(`Are you sure you want to delete ${participantToDelete.name}?`)) {
-      const updatedParticipants = participants.filter(p => p.id !== id);
+      const updatedParticipants = localParticipants.filter(p => p.id !== id);
       onUpdateParticipants(updatedParticipants);
+      // Also update local state for immediate UI update
+      setLocalParticipants(updatedParticipants);
       toast.success(`${participantToDelete.name} has been removed from the leaderboard`);
     }
   };

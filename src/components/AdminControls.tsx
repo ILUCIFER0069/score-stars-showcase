@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +25,12 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
   const [newName, setNewName] = useState('');
   const [newInitialPoints, setNewInitialPoints] = useState('0');
+  const [localParticipants, setLocalParticipants] = useState<Participant[]>(participants);
+
+  // Keep local state synced with props
+  useEffect(() => {
+    setLocalParticipants(participants);
+  }, [participants]);
 
   // Check if admin is already logged in
   useEffect(() => {
@@ -58,14 +63,17 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
       return;
     }
 
-    const updatedParticipants = participants.map(p => {
+    const updatedParticipants = localParticipants.map(p => {
       if (p.id === selectedParticipant.id) {
         return { ...p, points: Number(newPoints) };
       }
       return p;
     });
 
+    // Update both local state and parent state
+    setLocalParticipants(updatedParticipants);
     onUpdateParticipants(updatedParticipants);
+    
     setSelectedParticipant(null);
     setNewPoints('');
     setIsUpdatePopupOpen(false);
@@ -85,20 +93,23 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
     }
     
     // Generate new ID
-    const maxId = participants.reduce((max, p) => Math.max(max, p.id), 0);
+    const maxId = localParticipants.reduce((max, p) => Math.max(max, p.id), 0);
     const newId = maxId + 1;
     
-    // Add new participant
-    const updatedParticipants = [
-      ...participants, 
-      {
-        id: newId,
-        name: newName.trim(),
-        points: Number(newInitialPoints)
-      }
-    ];
+    // Create new participant
+    const newParticipant = {
+      id: newId,
+      name: newName.trim(),
+      points: Number(newInitialPoints)
+    };
     
+    // Add new participant
+    const updatedParticipants = [...localParticipants, newParticipant];
+    
+    // Update both local state and parent state
+    setLocalParticipants(updatedParticipants);
     onUpdateParticipants(updatedParticipants);
+    
     setIsAddPopupOpen(false);
     setNewName('');
     setNewInitialPoints('0');
@@ -107,12 +118,16 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
   };
 
   const handleDeleteParticipant = (id: number) => {
-    const participantToDelete = participants.find(p => p.id === id);
+    const participantToDelete = localParticipants.find(p => p.id === id);
     if (!participantToDelete) return;
     
     if (confirm(`Are you sure you want to delete ${participantToDelete.name}?`)) {
-      const updatedParticipants = participants.filter(p => p.id !== id);
+      const updatedParticipants = localParticipants.filter(p => p.id !== id);
+      
+      // Update both local state and parent state
+      setLocalParticipants(updatedParticipants);
       onUpdateParticipants(updatedParticipants);
+      
       toast.success(`${participantToDelete.name} has been removed from the leaderboard`);
     }
   };
