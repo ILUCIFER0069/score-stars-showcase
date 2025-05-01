@@ -7,14 +7,15 @@ export type Participant = {
 };
 
 export const participants: Participant[] = [
-  { id: 1, name: "Alex Thompson", points: 1250 },
-  { id: 2, name: "Jamie Rodriguez", points: 980 },
-  { id: 3, name: "Sam Wilson", points: 875 },
-  { id: 4, name: "Casey Johnson", points: 760 },
-  { id: 5, name: "Jordan Smith", points: 720 },
-  { id: 6, name: "Taylor Brown", points: 690 },
-  { id: 7, name: "Morgan Lee", points: 650 },
-  { id: 8, name: "Riley Davis", points: 610 },
-  { id: 9, name: "Quinn Miller", points: 590 },
-  { id: 10, name: "Charlie Adams", points: 540 },
+  { id: 1, name: "Sneha Ramkumar Yadav", points: 0 },
+  { id: 2, name: "Shaikh Kausar Mohammad Ali", points: 0 },
+  { id: 3, name: "Muskan Jitendra Yadav", points:0 },
+  { id: 4, name: "Ashish Sahani", points: 0 },
+  { id: 5, name: "Disha sharma", points: 0 },
+  { id: 6, name: "Vishal Dinesh Prajapati", points: 0},
+  { id: 7, name: "Izhar khan", points: 0 },
+  { id: 8, name: "Atharva", points: 0 },
+  { id: 9, name: "Simran vishwakarma", points: 0},
+  { id: 10, name: "Esha jain", points: 0 },
+  { id: 11, name: "Bhumika Pravin Surve", points: 0 },
 ];
