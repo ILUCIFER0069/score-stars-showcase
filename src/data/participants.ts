@@ -19,4 +19,6 @@ export const participants: Participant[] = [
   { id: 10, name: "Esha jain", points: 0 },
   { id: 11, name: "Bhumika Pravin Surve", points: 0 },
   { id: 12, name: "Saniya Singh", points: 0 },
+  { id: 13, name: "Vinay Pradeep Tiwari", points: 0 },
+   { id: 14, name: "Sushma saroj", points: 0 },
 ];
