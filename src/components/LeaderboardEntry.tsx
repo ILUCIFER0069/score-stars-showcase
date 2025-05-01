@@ -87,6 +87,7 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
               onDelete();
             }}
             className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-100 dark:hover:bg-red-900/20"
+            aria-label="Delete participant"
           >
             <Trash2 size={16} />
           </button>
