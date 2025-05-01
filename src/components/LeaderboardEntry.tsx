@@ -69,6 +69,7 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
           <h3 className="font-semibold text-gray-800 dark:text-gray-200">{participant.name}</h3>
         </div>
       </div>
+      
       <div className="flex items-center gap-3">
         <div className="text-right">
           <span className={cn(
