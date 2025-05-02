@@ -20,7 +20,7 @@ export const participants: Participant[] = [
   { id: 11, name: "Bhumika Pravin Surve", points: 500 },
   { id: 12, name: "Saniya Singh", points: 100 },
   { id: 13, name: "Vinay Pradeep Tiwari", points: 300 },
-  { id: 14, name: "Sushma saroj", points: 0 },
+  { id: 14, name: "Sushma saroj", points: 100 },
   { id: 15, name: "Talenson", points: 1000 },
   { id: 16, name: "Sachin prajapati", points: 0 },
   { id: 17, name: "Kadri Ruksar Fatima Abdul Salim ", points: 0 },
