@@ -29,7 +29,7 @@ export const participants: Participant[] = [
   { id: 12, name: "Saniya Singh", points: 750, history: [] },
   { id: 13, name: "Vinay Pradeep Tiwari", points: 900, history: [] },
   { id: 14, name: "Sushma saroj", points: 725, history: [] },
-  { id: 15, name: "Talenson", points: 4400, history: [{id:1, date:"1-04-2025", points:100, reason:"Day 1 Task Submission."]} },
+  { id: 15, name: "Talenson", points: 4400, history: [] = [{id:1, date:"1-04-2025", points:100, reason:"Day 1 Task Submission."}], },
   { id: 16, name: "Sachin prajapati", points: 0, history: [] },
   { id: 17, name: "Kadri Ruksar Fatima Abdul Salim ", points: 0, history: [] },
   { id: 18, name: "Aarju singh", points: 275, history: [] },
