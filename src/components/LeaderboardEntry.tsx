@@ -9,13 +9,15 @@ interface LeaderboardEntryProps {
   position: number;
   isAdmin?: boolean;
   onDelete?: () => void;
+  onClick: () => void;
 }
 
 const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ 
   participant, 
   position,
   isAdmin,
-  onDelete
+  onDelete,
+  onClick
 }) => {
   // Determine if the participant is in the top 3
   const isTopThree = position <= 3;
@@ -50,9 +52,10 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({
   return (
     <div 
       className={cn(
-        "flex items-center justify-between p-4 mb-2 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-[1.01] hover:shadow-md",
+        "flex items-center justify-between p-4 mb-2 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-[1.01] hover:shadow-md cursor-pointer",
         getRankStyle()
       )}
+      onClick={onClick}
     >
       <div className="flex items-center space-x-4">
         <div className={cn(

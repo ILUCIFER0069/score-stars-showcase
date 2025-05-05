@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LeaderboardEntry from './LeaderboardEntry';
+import ParticipantDetail from './ParticipantDetail';
 import { Participant } from '@/data/participants';
 import { Input } from '@/components/ui/input';
 import { Search, Trash2 } from 'lucide-react';
@@ -17,6 +18,8 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [localParticipants, setLocalParticipants] = useState<Participant[]>(participants);
+  const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
 
   // Keep local state in sync with props
   useEffect(() => {
@@ -60,6 +63,17 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
     }
   };
 
+  // Handle participant selection
+  const handleParticipantClick = (participant: Participant) => {
+    setSelectedParticipant(participant);
+    setDetailOpen(true);
+  };
+
+  // Close detail view
+  const handleCloseDetail = () => {
+    setDetailOpen(false);
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto">
       <div className="mb-6 relative">
@@ -84,6 +98,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
               position={index + 1}
               isAdmin={isAdmin}
               onDelete={isAdmin && onUpdateParticipants ? () => handleDelete(participant.id) : undefined}
+              onClick={() => handleParticipantClick(participant)}
             />
           ))
         ) : (
@@ -92,6 +107,12 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
           </div>
         )}
       </div>
+
+      <ParticipantDetail 
+        participant={selectedParticipant} 
+        isOpen={detailOpen} 
+        onClose={handleCloseDetail} 
+      />
     </div>
   );
 };
