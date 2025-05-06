@@ -35,11 +35,11 @@ export const participants: Participant[] = [
   { id: 13, name: "Vinay Pradeep Tiwari", points: 1500, history: [] },
   { id: 14, name: "Sushma saroj", points: 950, history: [] },
   { id: 15, name: "Talenson", points: 5500, history: [
+    {id: 5, date: "5-04-2025", points: 1100, reason: "Day 5 Task Submission and Winner(1)."},
     {id: 1, date: "1-04-2025", points: 1100, reason: "Day 1 Task Submission and Winner(1)."},
     {id: 2, date: "2-04-2025", points: 1100, reason: "Day 2 Task Submission and Winner(1)."},
     {id: 3, date: "3-04-2025", points: 1100, reason: "Day 3 Task Submission and Winner(1)."},
     {id: 4, date: "4-04-2025", points: 1100, reason: "Day 4 Task Submission and Winner(1)."},
-    {id: 5, date: "5-04-2025", points: 1100, reason: "Day 5 Task Submission and Winner(1)."}
   ]},
   { id: 16, name: "Sachin prajapati", points: 0, history: [] },
   { id: 17, name: "Kadri Ruksar Fatima Abdul Salim ", points: 0, history: [] },
