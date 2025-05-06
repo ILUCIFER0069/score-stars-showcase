@@ -16,24 +16,24 @@ export type Participant = {
 
 export const participants: Participant[] = [
   { id: 1, name: "Sneha Ramkumar Yadav", points: 200, history: [] },
-  { id: 2, name: "Shaikh Kausar Mohammad Ali", points: 875, history: [] },
-  { id: 3, name: "Muskan Jitendra Yadav", points: 1250, history: [] },
+  { id: 2, name: "Shaikh Kausar Mohammad Ali", points: 1475, history: [] },
+  { id: 3, name: "Muskan Jitendra Yadav", points: 1300, history: [] },
   { id: 4, name: "Ashish Sahani", points: 0, history: [] },
-  { id: 5, name: "Disha sharma", points: 425, history: [] },
+  { id: 5, name: "Disha sharma", points: 475, history: [] },
   { id: 6, name: "Vishal Dinesh Prajapati", points: 0, history: [] },
   { id: 7, name: "Izhar khan", points: 0, history: [] },
   { id: 8, name: "Atharva", points: 0, history: [] },
   { id: 9, name: "Simran vishwakarma", points: 0, history: [] },
   { id: 10, name: "Esha jain", points: 100, history: [] },
-  { id: 11, name: "Bhumika Pravin Surve", points: 3400, history: [
+  { id: 11, name: "Bhumika Pravin Surve", points: 4700, history: [
      {id: 1, date: "1-04-2025", points: 600, reason: "Day 1 Task Submission and Winner(2)."},
     {id: 2, date: "2-04-2025", points: 600, reason: "Day 2 Task Submission and Winner(2)."},
     {id: 3, date: "3-04-2025", points: 600, reason: "Day 3 Task Submission and Winner(2)."},
     {id: 4, date: "4-04-2025", points: 1100, reason: "Day 4 Task Submission and Winner(1)."}
   ] },
-  { id: 12, name: "Saniya Singh", points: 1250, history: [] },
-  { id: 13, name: "Vinay Pradeep Tiwari", points: 1100, history: [] },
-  { id: 14, name: "Sushma saroj", points: 725, history: [] },
+  { id: 12, name: "Saniya Singh", points: 2050, history: [] },
+  { id: 13, name: "Vinay Pradeep Tiwari", points: 1500, history: [] },
+  { id: 14, name: "Sushma saroj", points: 950, history: [] },
   { id: 15, name: "Talenson", points: 4400, history: [
     {id: 1, date: "1-04-2025", points: 1100, reason: "Day 1 Task Submission and Winner(1)."},
     {id: 2, date: "2-04-2025", points: 1100, reason: "Day 2 Task Submission and Winner(1)."},
@@ -46,8 +46,8 @@ export const participants: Participant[] = [
   { id: 19, name: "Sania Shaikh", points: 0, history: [] },
   { id: 20, name: "Mandal Jaya", points: 2100, history: [] },
   { id: 21, name: "Cathrina Ramkumar", points: 0, history: [] },
-  { id: 22, name: "Shivam Chaurasia ", points: 1550, history: [] },
+  { id: 22, name: "Shivam Chaurasia ", points: 2150, history: [] },
   { id: 23, name: "Siddiqui mohd sohail ", points: 0, history: [] },
   { id: 24, name: "Salman", points: 0, history: [] },
-  { id: 25, name: "Sana Ismail Shaikh ", points: 750, history: [] }
+  { id: 25, name: "Sana Ismail Shaikh ", points: 1350, history: [] }
 ];
