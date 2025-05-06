@@ -29,11 +29,12 @@ export const participants: Participant[] = [
   { id: 12, name: "Saniya Singh", points: 750, history: [] },
   { id: 13, name: "Vinay Pradeep Tiwari", points: 900, history: [] },
   { id: 14, name: "Sushma saroj", points: 725, history: [] },
-  { id: 15, name: "Talenson", points: 4400, history: [] = [{id:1, date:"1-04-2025", points:1100, reason:"Day 1 Task Submission and Winner(1)."},
-                                                          {id:2, date:"2-04-2025", points:1100, reason:"Day 2 Task Submission and Winner(1)."},
-                                                          {id:3, date:"3-04-2025", points:1100, reason:"Day 1 Task Submission and Winner(1)."},
-                                                          {id:4, date:"4-04-2025", points:1100, reason:"Day 1 Task Submission and Winner(1)."},
-                                                          ];},
+  { id: 15, name: "Talenson", points: 4400, history: [
+    {id: 1, date: "1-04-2025", points: 1100, reason: "Day 1 Task Submission and Winner(1)."},
+    {id: 2, date: "2-04-2025", points: 1100, reason: "Day 2 Task Submission and Winner(1)."},
+    {id: 3, date: "3-04-2025", points: 1100, reason: "Day 3 Task Submission and Winner(1)."},
+    {id: 4, date: "4-04-2025", points: 1100, reason: "Day 4 Task Submission and Winner(1)."}
+  ]},
   { id: 16, name: "Sachin prajapati", points: 0, history: [] },
   { id: 17, name: "Kadri Ruksar Fatima Abdul Salim ", points: 0, history: [] },
   { id: 18, name: "Aarju singh", points: 275, history: [] },
@@ -43,5 +44,5 @@ export const participants: Participant[] = [
   { id: 22, name: "Shivam Chaurasia ", points: 1050, history: [] },
   { id: 23, name: "Siddiqui mohd sohail ", points: 0, history: [] },
   { id: 24, name: "Salman", points: 0, history: [] },
-  { id: 25, name: "Sana Ismail Shaikh ", points: 750, history: [] },
+  { id: 25, name: "Sana Ismail Shaikh ", points: 750, history: [] }
 ];
