@@ -46,8 +46,6 @@ export const participants: Participant[] = [
     {id: 5, date: "4-04-2025", points: 700, reason: "CREATOR CHALLENGE Submission and Winner(1)."},
     {id: 6, date: "5-04-2025", points: 1100, reason: "Day 5 Task Submission and Winner(1)."},
   ] },
-  ] },
-  ] },
   { id: 12, name: "Saniya Singh", points: 2050, history: [
     {id: 1, date: "1-04-2025", points: 100, reason: "Day 1 Task Submission."},
   ] },
