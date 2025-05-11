@@ -20,7 +20,7 @@ export const participants: Participant[] = [
     {id: 2, date: "3-04-2025", points: 100, reason: "Day 3 Task Submission."},
   ] },
   
-  { id: 2, name: "Shaikh Kausar Mohammad Ali", points: 2475, history: [
+  { id: 2, name: "Shaikh Kausar Mohammad Ali", points: 3975, history: [
     {id: 1, date: "1-04-2025", points: 100, reason: "Day 1 Task Submission & extra structure point."},
     {id: 1, date: "2-04-2025", points: 125, reason: "Day 2 Task Submission."},
     {id: 2, date: "3-04-2025", points: 225, reason: "Day 3 Task Submission and 4th place."},
@@ -29,8 +29,10 @@ export const participants: Participant[] = [
     {id: 6, date: "5-04-2025", points: 600, reason: "Day 5 Task Submission and Winner(2)."},
     {id: 6, date: "6-04-2025", points: 600, reason: "Day 6 Task Submission and Winner(2)."},
     {id: 7, date: "7-04-2025", points: 400, reason: "Day 7 Task Submission and Winner(3)."},
+    {id: 8, date: "8-04-2025", points: 600, reason: "Day 8 Task Submission and Winner(2)."},
+    {id: 9, date: "10-04-2025", points: 900, reason: "Day 10 Task Submission and Winner(3) and bonus point."},
   ] },
-  { id: 3, name: "Muskan Jitendra Yadav", points: 1750, history: [
+  { id: 3, name: "Muskan Jitendra Yadav", points: 3500, history: [
     {id: 1, date: "1-04-2025", points: 100, reason: "Day 1 Task Submission "},
     {id: 2, date: "2-04-2025", points: 150, reason: "Day 2 Task Submission & extra structure point."},
     {id: 3, date: "3-04-2025", points: 400, reason: "Day 3 Task Submission and Winner(3)."},
@@ -39,6 +41,9 @@ export const participants: Participant[] = [
     {id: 6, date: "5-04-2025", points: 50, reason: "Day 5 Task Submission but copied Response."},
     {id: 7, date: "6-04-2025", points: 250, reason: "Day 6 Task Submission & extra structure point."},
     {id: 8, date: "7-04-2025", points: 200, reason: "Day 7 Task Submission & extra structure point."},
+    {id: 9, date: "8-04-2025", points: 400, reason: "Day 8 Task Submission and Winner(3)."},
+    {id: 10, date: "9-04-2025", points: 250, reason: "Day 9 Task Submission & extra structure point."},
+    {id: 11, date: "10-04-2025", points: 1100, reason: "Day 10 Task Submission and Winner(2) and bonus point."},
   ] },
   { id: 4, name: "Ashish Sahani", points: 0, history: [] },
   
@@ -58,7 +63,7 @@ export const participants: Participant[] = [
     {id: 1, date: "1-04-2025", points: 100, reason: "Day 1 Task Submission."},
   ] },
   
-  { id: 11, name: "Bhumika Pravin Surve", points: 6900, history: [
+  { id: 11, name: "Bhumika Pravin Surve", points: 10200, history: [
      {id: 1, date: "1-04-2025", points: 600, reason: "Day 1 Task Submission and Winner(2)."},
     {id: 2, date: "2-04-2025", points: 600, reason: "Day 2 Task Submission and Winner(2)."},
     {id: 3, date: "3-04-2025", points: 600, reason: "Day 3 Task Submission and Winner(2)."},
@@ -67,8 +72,11 @@ export const participants: Participant[] = [
     {id: 6, date: "5-04-2025", points: 1100, reason: "Day 5 Task Submission and Winner(1)."},
     {id: 7, date: "6-04-2025", points: 1100, reason: "Day 6 Task Submission and Winner(1)."},
     {id: 8, date: "7-04-2025", points: 1100, reason: "Day 7 Task Submission and Winner(1)."},
+    {id: 9, date: "8-04-2025", points: 1100, reason: "Day 8 Task Submission and Winner(1)."},
+    {id: 10, date: "9-04-2025", points: 1100, reason: "Day 9 Task Submission and Winner(1)."},
+    {id: 11, date: "10-04-2025", points: 1100, reason: "Day 10 Task Submission and Winner(2) and bonus point."},
   ] },
-  { id: 12, name: "Saniya Singh", points: 2900, history: [
+  { id: 12, name: "Saniya Singh", points: 5500, history: [
     {id: 1, date: "1-04-2025", points: 100, reason: "Day 1 Task Submission."},
     {id: 2, date: "2-04-2025", points: 200, reason: "Day 2 Task Submission & extra structure point."},
     {id: 3, date: "3-04-2025", points: 225, reason: "Day 3 Task Submission and 4th place."},
@@ -77,8 +85,11 @@ export const participants: Participant[] = [
     {id: 6, date: "5-04-2025", points: 600, reason: "Day 5 Task Submission and Winner(2)."},
     {id: 7, date: "6-04-2025", points: 250, reason: "Day 6 Task Submission & extra structure point."},
     {id: 8, date: "7-04-2025", points: 600, reason: "Day 7 Task Submission and Winner(2)."},
+    {id: 9, date: "8-04-2025", points: 600, reason: "Day 8 Task Submission and Winner(2)."},
+    {id: 10, date: "9-04-2025", points: 400, reason: "Day 9 Task Submission and Winner(2)."},
+    {id: 11, date: "10-04-2025", points: 1600, reason: "Day 10 Task Submission and Winner(1) and bonus point."},
   ] },
-  { id: 13, name: "Vinay Pradeep Tiwari", points: 2300, history: [
+  { id: 13, name: "Vinay Pradeep Tiwari", points: 3850, history: [
     {id: 1, date: "1-04-2025", points: 400, reason: "Day 1 Task Submission and Winner(3)."},
     {id: 2, date: "2-04-2025", points: 100, reason: "Day 2 Task Submission."},
     {id: 3, date: "3-04-2025", points: 175, reason: "Day 3 Task Submission & extra structure point."},
@@ -87,6 +98,9 @@ export const participants: Participant[] = [
     {id: 6, date: "5-04-2025", points: 400, reason: "Day 5 Task Submission and Winner(3)."},
     {id: 7, date: "6-04-2025", points: 400, reason: "Day 6 Task Submission and Winner(3)."},
     {id: 8, date: "7-04-2025", points: 400, reason: "Day 7 Task Submission and Winner(3)."},
+    {id: 9, date: "8-04-2025", points: 400, reason: "Day 8 Task Submission and Winner(3)."},
+    {id: 9, date: "9-04-2025", points: 250, reason: "Day 9 Task Submission & extra structure point."},
+    {id: 10, date: "10-04-2025", points: 900, reason: "Day 10 Task Submission and Winner(3) and bonus point."},
   ] },
   { id: 14, name: "Sushma saroj", points: 1350, history: [
     {id: 1, date: "1-04-2025", points: 100, reason: "Day 1 Task Submission."},
@@ -97,13 +111,14 @@ export const participants: Participant[] = [
     {id: 6, date: "6-04-2025", points: 400, reason: "Day 6 Task Submission and Winner(3)."},
   ] },
   
-  { id: 15, name: "Talenson", points: 5700, history: [
+  { id: 15, name: "Talenson", points: 7300, history: [
     {id: 1, date: "1-04-2025", points: 1100, reason: "Day 1 Task Submission and Winner(1)."},
     {id: 2, date: "2-04-2025", points: 1100, reason: "Day 2 Task Submission and Winner(1)."},
     {id: 3, date: "3-04-2025", points: 1100, reason: "Day 3 Task Submission and Winner(1)."},
     {id: 4, date: "4-04-2025", points: 1100, reason: "Day 4 Task Submission and Winner(1)."},
     {id: 5, date: "5-04-2025", points: 1100, reason: "Day 5 Task Submission and Winner(1)."},
     {id: 6, date: "6-04-2025", points: 200, reason: "Day 6 Task Submission & extra structure point."},
+    {id: 7, date: "10-04-2025", points: 1600, reason: "Day 10 Task Submission and Winner(1) and bonus point."},
   ]},
   { id: 16, name: "Sachin prajapati", points: 0, history: [] },
   { id: 17, name: "Kadri Ruksar Fatima Abdul Salim ", points: 0, history: [] },
@@ -114,7 +129,7 @@ export const participants: Participant[] = [
   ] },
   { id: 19, name: "Sania Shaikh", points: 0, history: [] },
   
-  { id: 20, name: "Mandal Jaya", points: 2950, history: [
+  { id: 20, name: "Mandal Jaya", points: 3350, history: [
     {id: 1, date: "2-04-2025", points: 400, reason: "Day 2 Task Submission and Winner(3)."},
     {id: 2, date: "3-04-2025", points: 400, reason: "Day 3 Task Submission and Winner(3)."},
     {id: 3, date: "4-04-2025", points: 1100, reason: "Day 4 Task Submission and Winner(1)."},
@@ -122,10 +137,12 @@ export const participants: Participant[] = [
     {id: 5, date: "5-04-2025", points: 400, reason: "Day 5 Task Submission and Winner(3)."},
     {id: 6, date: "6-04-2025", points: 250, reason: "Day 6 Task Submission & extra structure point."},
     {id: 7, date: "7-04-2025", points: 200, reason: "Day 7 Task Submission & extra structure point."},
+    {id: 8, date: "8-04-2025", points: 400, reason: "Day 8 Task Submission and Winner(3)."},
+    {id: 9, date: "9-04-2025", points: 250, reason: "Day 9 Task Submission & extra structure point."},
   ] },
   { id: 21, name: "Cathrina Ramkumar", points: 0, history: [] },
   
-  { id: 22, name: "Shivam Chaurasia ", points: 2750, history: [
+  { id: 22, name: "Shivam Chaurasia ", points: 3400, history: [
     {id: 1, date: "2-04-2025", points: 225, reason: "Day 2 Task Submission & extra structure point."},
     {id: 2, date: "3-04-2025", points: 225, reason: "Day 3 Task Submission and 4th place."},
     {id: 3, date: "4-04-2025", points: 600, reason: "Day 4 Task Submission and Winner(2)."},
@@ -133,14 +150,18 @@ export const participants: Participant[] = [
     {id: 5, date: "5-04-2025", points: 400, reason: "Day 5 Task Submission and Winner(3)."},
     {id: 6, date: "6-04-2025", points: 200, reason: "Day 6 Task Submission & extra structure point."},
     {id: 7, date: "7-04-2025", points: 400, reason: "Day 7 Task Submission and Winner(3)."},
+    {id: 8, date: "8-04-2025", points: 400, reason: "Day 8 Task Submission and Winner(3)."},
+    {id: 9, date: "9-04-2025", points: 250, reason: "Day 9 Task Submission & extra structure point."},
   ] },
   { id: 23, name: "Siddiqui mohd sohail ", points: 0, history: [] },
   { id: 24, name: "Salman", points: 0, history: [] },
   
-  { id: 25, name: "Sana Ismail Shaikh ", points: 1600, history: [
+  { id: 25, name: "Sana Ismail Shaikh ", points: 2900, history: [
     {id: 1, date: "3-04-2025", points: 150, reason: "Day 3 Task Submission & extra structure point."},
     {id: 2, date: "4-04-2025", points: 600, reason: "Day 4 Task Submission and Winner(2)."},
     {id: 3, date: "5-04-2025", points: 600, reason: "Day 5 Task Submission and Winner(2)."},
     {id: 4, date: "6-04-2025", points: 250, reason: "Day 6 Task Submission & extra structure point."},
+    {id: 5, date: "8-04-2025", points: 400, reason: "Day 3 Task Submission and Winner(3)."},
+    {id: 6, date: "10-04-2025", points: 900, reason: "Day 10 Task Submission and Winner(3) and bonus point."},
   ] }
 ];
