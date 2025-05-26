@@ -60,12 +60,19 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
     }
 
     try {
+      console.log('Updating points for participant:', selectedParticipant.id, 'to:', Number(newPoints));
+      
       const { error } = await supabase
         .from('participants')
         .update({ points: Number(newPoints) })
         .eq('id', selectedParticipant.id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+
+      console.log('Points updated successfully in database');
 
       // Update local state immediately for real-time effect
       const updatedParticipants = participants.map(p => {
@@ -100,6 +107,8 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
     }
     
     try {
+      console.log('Adding new participant:', newName, 'with points:', Number(newInitialPoints));
+      
       const { data, error } = await supabase
         .from('participants')
         .insert({ 
@@ -109,7 +118,12 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
+
+      console.log('Participant added successfully:', data);
 
       // Create new participant with history for real-time update
       const newParticipant: ParticipantWithHistory = {
@@ -138,12 +152,19 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
     
     if (confirm(`Are you sure you want to delete ${participantToDelete.name}?`)) {
       try {
+        console.log('Deleting participant:', id);
+        
         const { error } = await supabase
           .from('participants')
           .delete()
           .eq('id', id);
 
-        if (error) throw error;
+        if (error) {
+          console.error('Supabase error:', error);
+          throw error;
+        }
+
+        console.log('Participant deleted successfully');
 
         // Update local state immediately for real-time effect
         const updatedParticipants = participants.filter(p => p.id !== id);
@@ -280,6 +301,24 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
                 </div>
               </PopoverContent>
             </Popover>
+          </div>
+
+          {/* Delete functionality for admin */}
+          <div className="mt-6">
+            <h4 className="font-medium mb-3">Delete Participants</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+              {participants.map(participant => (
+                <Button
+                  key={participant.id}
+                  variant="destructive"
+                  size="sm"
+                  onClick={() => handleDeleteParticipant(participant.id)}
+                  className="text-left justify-start"
+                >
+                  Delete {participant.name}
+                </Button>
+              ))}
+            </div>
           </div>
         </CardContent>
       </Card>
