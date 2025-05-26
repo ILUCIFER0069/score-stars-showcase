@@ -1,36 +1,32 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Participant } from '@/data/participants';
+import { ParticipantWithHistory } from '@/types/database';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { toast } from 'sonner';
-import { LogIn, User } from 'lucide-react';
+import { LogIn } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 // Admin password
 const ADMIN_PASSWORD = "ScoreStars@4231";
 
 interface AdminControlsProps {
-  participants: Participant[];
-  onUpdateParticipants: (participants: Participant[]) => void;
+  participants: ParticipantWithHistory[];
+  onUpdateParticipants: (participants: ParticipantWithHistory[]) => void;
 }
 
 const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdateParticipants }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [password, setPassword] = useState('');
-  const [selectedParticipant, setSelectedParticipant] = useState<Participant | null>(null);
+  const [selectedParticipant, setSelectedParticipant] = useState<ParticipantWithHistory | null>(null);
   const [newPoints, setNewPoints] = useState<string>('');
   const [isUpdatePopupOpen, setIsUpdatePopupOpen] = useState(false);
   const [isAddPopupOpen, setIsAddPopupOpen] = useState(false);
   const [newName, setNewName] = useState('');
   const [newInitialPoints, setNewInitialPoints] = useState('0');
-  const [localParticipants, setLocalParticipants] = useState<Participant[]>(participants);
-
-  // Keep local state synced with props
-  useEffect(() => {
-    setLocalParticipants(participants);
-  }, [participants]);
 
   // Check if admin is already logged in
   useEffect(() => {
@@ -57,31 +53,42 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
     toast.success('Admin logged out');
   };
 
-  const handleUpdatePoints = () => {
+  const handleUpdatePoints = async () => {
     if (!selectedParticipant || !newPoints || isNaN(Number(newPoints))) {
       toast.error('Please select a participant and enter valid points');
       return;
     }
 
-    const updatedParticipants = localParticipants.map(p => {
-      if (p.id === selectedParticipant.id) {
-        return { ...p, points: Number(newPoints) };
-      }
-      return p;
-    });
+    try {
+      const { error } = await supabase
+        .from('participants')
+        .update({ points: Number(newPoints) })
+        .eq('id', selectedParticipant.id);
 
-    // Update both local state and parent state
-    setLocalParticipants(updatedParticipants);
-    onUpdateParticipants(updatedParticipants);
-    
-    setSelectedParticipant(null);
-    setNewPoints('');
-    setIsUpdatePopupOpen(false);
-    
-    toast.success(`${selectedParticipant.name}'s points updated to ${newPoints}`);
+      if (error) throw error;
+
+      // Update local state
+      const updatedParticipants = participants.map(p => {
+        if (p.id === selectedParticipant.id) {
+          return { ...p, points: Number(newPoints) };
+        }
+        return p;
+      });
+
+      onUpdateParticipants(updatedParticipants);
+      
+      setSelectedParticipant(null);
+      setNewPoints('');
+      setIsUpdatePopupOpen(false);
+      
+      toast.success(`${selectedParticipant.name}'s points updated to ${newPoints}`);
+    } catch (error) {
+      console.error('Error updating points:', error);
+      toast.error('Failed to update points');
+    }
   };
 
-  const handleAddParticipant = () => {
+  const handleAddParticipant = async () => {
     if (!newName.trim()) {
       toast.error('Please enter a participant name');
       return;
@@ -92,43 +99,60 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
       return;
     }
     
-    // Generate new ID
-    const maxId = localParticipants.reduce((max, p) => Math.max(max, p.id), 0);
-    const newId = maxId + 1;
-    
-    // Create new participant
-    const newParticipant = {
-      id: newId,
-      name: newName.trim(),
-      points: Number(newInitialPoints)
-    };
-    
-    // Add new participant
-    const updatedParticipants = [...localParticipants, newParticipant];
-    
-    // Update both local state and parent state
-    setLocalParticipants(updatedParticipants);
-    onUpdateParticipants(updatedParticipants);
-    
-    setIsAddPopupOpen(false);
-    setNewName('');
-    setNewInitialPoints('0');
-    
-    toast.success(`${newName} added to the leaderboard`);
+    try {
+      const { data, error } = await supabase
+        .from('participants')
+        .insert({ 
+          name: newName.trim(), 
+          points: Number(newInitialPoints) 
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Create new participant with history
+      const newParticipant: ParticipantWithHistory = {
+        ...data,
+        history: []
+      };
+      
+      // Add new participant to local state
+      const updatedParticipants = [...participants, newParticipant];
+      onUpdateParticipants(updatedParticipants);
+      
+      setIsAddPopupOpen(false);
+      setNewName('');
+      setNewInitialPoints('0');
+      
+      toast.success(`${newName} added to the leaderboard`);
+    } catch (error) {
+      console.error('Error adding participant:', error);
+      toast.error('Failed to add participant');
+    }
   };
 
-  const handleDeleteParticipant = (id: number) => {
-    const participantToDelete = localParticipants.find(p => p.id === id);
+  const handleDeleteParticipant = async (id: number) => {
+    const participantToDelete = participants.find(p => p.id === id);
     if (!participantToDelete) return;
     
     if (confirm(`Are you sure you want to delete ${participantToDelete.name}?`)) {
-      const updatedParticipants = localParticipants.filter(p => p.id !== id);
-      
-      // Update both local state and parent state
-      setLocalParticipants(updatedParticipants);
-      onUpdateParticipants(updatedParticipants);
-      
-      toast.success(`${participantToDelete.name} has been removed from the leaderboard`);
+      try {
+        const { error } = await supabase
+          .from('participants')
+          .delete()
+          .eq('id', id);
+
+        if (error) throw error;
+
+        const updatedParticipants = participants.filter(p => p.id !== id);
+        onUpdateParticipants(updatedParticipants);
+        
+        toast.success(`${participantToDelete.name} has been removed from the leaderboard`);
+      } catch (error) {
+        console.error('Error deleting participant:', error);
+        toast.error('Failed to delete participant');
+      }
     }
   };
 
