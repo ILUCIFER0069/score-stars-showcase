@@ -5,7 +5,6 @@ import ParticipantDetail from './ParticipantDetail';
 import type { ParticipantWithHistory } from '@/types/database';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { toast } from 'sonner';
 
 interface LeaderboardProps {
   participants: ParticipantWithHistory[];
@@ -42,20 +41,6 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
     participant => participant.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Handle deletion of a participant
-  const handleDelete = (id: number) => {
-    if (!onUpdateParticipants) return;
-    
-    const participantToDelete = participants.find(p => p.id === id);
-    if (!participantToDelete) return;
-    
-    if (confirm(`Are you sure you want to delete ${participantToDelete.name}?`)) {
-      const updatedParticipants = participants.filter(p => p.id !== id);
-      onUpdateParticipants(updatedParticipants);
-      toast.success(`${participantToDelete.name} has been removed from the leaderboard`);
-    }
-  };
-
   // Handle participant selection
   const handleParticipantClick = (participant: ParticipantWithHistory) => {
     setSelectedParticipant(participant);
@@ -90,7 +75,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
               participant={participant}
               position={index + 1}
               isAdmin={isAdmin}
-              onDelete={isAdmin && onUpdateParticipants ? () => handleDelete(participant.id) : undefined}
+              onDelete={undefined}
               onClick={() => handleParticipantClick(participant)}
             />
           ))

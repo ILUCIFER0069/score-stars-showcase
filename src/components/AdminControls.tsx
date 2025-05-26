@@ -67,7 +67,7 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
 
       if (error) throw error;
 
-      // Update local state
+      // Update local state immediately for real-time effect
       const updatedParticipants = participants.map(p => {
         if (p.id === selectedParticipant.id) {
           return { ...p, points: Number(newPoints) };
@@ -111,13 +111,13 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
 
       if (error) throw error;
 
-      // Create new participant with history
+      // Create new participant with history for real-time update
       const newParticipant: ParticipantWithHistory = {
         ...data,
         history: []
       };
       
-      // Add new participant to local state
+      // Add new participant to local state immediately
       const updatedParticipants = [...participants, newParticipant];
       onUpdateParticipants(updatedParticipants);
       
@@ -145,6 +145,7 @@ const AdminControls: React.FC<AdminControlsProps> = ({ participants, onUpdatePar
 
         if (error) throw error;
 
+        // Update local state immediately for real-time effect
         const updatedParticipants = participants.filter(p => p.id !== id);
         onUpdateParticipants(updatedParticipants);
         
