@@ -1,32 +1,40 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Leaderboard from '@/components/Leaderboard';
 import AdminControls from '@/components/AdminControls';
 import LeaderboardHeader from '@/components/LeaderboardHeader';
-import { participants as initialParticipants } from '@/data/participants';
+import { useParticipants } from '@/hooks/useParticipants';
 import { Toaster } from 'sonner';
 
 const Index = () => {
-  // Load participants from localStorage if available, otherwise use initial data
-  const loadParticipants = () => {
-    const savedParticipants = localStorage.getItem('participants');
-    if (savedParticipants) {
-      try {
-        return JSON.parse(savedParticipants);
-      } catch (e) {
-        console.error("Error loading participants from localStorage", e);
-        return initialParticipants;
-      }
-    }
-    return initialParticipants;
-  };
+  const { participants, loading, error, setParticipants } = useParticipants();
 
-  const [participants, setParticipants] = useState(loadParticipants);
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading leaderboard...</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Save to localStorage whenever participants change
-  useEffect(() => {
-    localStorage.setItem('participants', JSON.stringify(participants));
-  }, [participants]);
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 dark:text-red-400">Error loading data: {error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 pb-10">

@@ -2,10 +2,10 @@
 import React from 'react';
 import { Trophy, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Participant } from '@/data/participants';
+import type { ParticipantWithHistory } from '@/types/database';
 
 interface LeaderboardEntryProps {
-  participant: Participant;
+  participant: ParticipantWithHistory;
   position: number;
   isAdmin?: boolean;
   onDelete?: () => void;

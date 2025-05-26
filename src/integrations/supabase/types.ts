@@ -9,7 +9,65 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      participants: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          points: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          points?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+          points?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      point_history: {
+        Row: {
+          created_at: string
+          date: string
+          id: number
+          participant_id: number | null
+          points: number
+          reason: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          id?: number
+          participant_id?: number | null
+          points: number
+          reason: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          id?: number
+          participant_id?: number | null
+          points?: number
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "point_history_participant_id_fkey"
+            columns: ["participant_id"]
+            isOneToOne: false
+            referencedRelation: "participants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
